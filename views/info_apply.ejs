@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+      <!-- head -->
+      <meta charset="utf-8">
+      <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="GSM-Apply">
+      <meta name="keywords" content="광주소프트웨어마이스터고, 광주소프트웨어마이스터고등학교, GSM, GSM-Apply, Apply, 입학, 입학관리, 입학지원, 입학지원, 원서작성, 광주소프트웨어마이스터고입학, 광주소프트웨어마이스터고등학교신입생, 어플라이, GSMAPPLY, 관리">
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="GSM-Apply">
+      <meta property="og:description" content="광주소프트웨어마이스터고등학교 입학관리 웹사이트">
+      <meta property="og:image" content="https://www.gsm-apply.com/logo.jpg">
+      <meta property="og:url" content="https://www.gsm-apply.com/logo.jpg">
+      <link rel="shortcut icon" href="./favicon.ico?i=2" type="image/x-icon" />
+      <link rel="icon" href="./favicon.ico?i=2" type="image/x-icon" />
+      <!-- /head -->
+    <title>GSM-Apply</title>
+    <link rel="stylesheet" type="text/css" href="semantic/components/menu.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/dropdown.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/reset.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/site.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/container.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/grid.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/header.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/image.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/menu.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/divider.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/list.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/segment.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/dropdown.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/icon.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/transition.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/button.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/card.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/label.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/image.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/reveal.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/dimmer.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/rating.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/popup.css">
+    <style type="text/css">
+      body {
+        background-color: #DADADA;
+      }
+      body > .grid {
+        height: 100%;
+      }
+      .column {
+        max-width: 450px;
+      }
+      .card{
+          cursor: pointer;
+      }
+    </style>
+
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+    <script src="./semantic/semantic.min.js"></script>
+    <script src="semantic/components/form.js"></script>
+    <script src="semantic/components/transition.js"></script>
+    <script src="semantic/components/dropdown.js"></script>
+    <script src="/semantic/components/visibility.js"></script>
+    <script>
+    $(document)
+      .ready(function() {
+        $('.main.menu').visibility({
+          type: 'fixed'
+        });
+        $('.overlay').visibility({
+          type: 'fixed',
+          offset: 80
+        });
+        $('.main.menu  .ui.dropdown').dropdown({
+          on: 'click'
+        });
+        $('.special.card .image').dimmer({
+                on: 'hover'
+            });
+            $('.star.rating')
+                .rating()
+            ;
+            $('.card .dimmer')
+                .dimmer({
+                on: 'hover'
+                })
+            ;
+      })
+    ;
+    </script>
+  </head>
+  <body class="">
+    <div class="ui main top fixed menu">
+            <a href="/">
+            <img src="/logo.png" height="50px">
+            </a>
+        <div class="item">
+        </div>
+        <a class="item" href="/">메인</a>
+        <a class="ui dropdown item">
+          학교 소개
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="active item" onclick="window.location.href='/info_apply';">
+              전형 요강</div>
+            <div class="item" onclick="window.location.href='/info_school';">
+              학교 소개</div>
+          </div>
+        </a>
+        <a class="item" href="/apply">원서 작성 및 수정</a>
+        <a class="item" href="/simul">모의성적 산출</a>
+        <a class="item" href="/apply_score">전형결과 조회</a>
+        <a class="item" href="/notice">공지사항</a>
+        <a class="item" href="/cs_main">고객센터</a>
+        <a class="right item" href="/<%= mode_url %>"><%= mode %></a></a>
+      </div>
+      <br>
+      <br>
+      <br>
+        <embed src="/yogang.pdf" width="100%" height="90%" 
+            type="application/pdf">
+        <div class="ui bottom fixed borderless menu">
+          <a class="item" href="https://gsm.hs.kr">본교 홈페이지(School Official Site)</a>
+          <a class="item" onclick="window.open('/gae.txt','개인정보 수집 및 이용 동의', 'width=800, height=500, toolbar=no, menubar=no'); return false;">개인정보 수집 및 이용 동의(Privacy Policy)</a>
+          <a class="item" onclick="window.open('/yak.txt','이용 약관',' width=800, height=500, toolbar=no, menubar=no'); return false;">이용약관(Terms of Service)</a>
+        </div>
+  </body>
+</html>

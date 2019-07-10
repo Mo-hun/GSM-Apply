@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+      <!-- head -->
+      <meta charset="utf-8">
+      <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="GSM-Apply">
+      <meta name="keywords" content="광주소프트웨어마이스터고, 광주소프트웨어마이스터고등학교, GSM, GSM-Apply, Apply, 입학, 입학관리, 입학지원, 입학지원, 원서작성, 광주소프트웨어마이스터고입학, 광주소프트웨어마이스터고등학교신입생, 어플라이, GSMAPPLY, 관리">
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="GSM-Apply">
+      <meta property="og:description" content="광주소프트웨어마이스터고등학교 입학관리 웹사이트">
+      <meta property="og:image" content="https://www.gsm-apply.com/logo.jpg">
+      <meta property="og:url" content="https://www.gsm-apply.com/logo.jpg">
+      <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+      <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+      <!-- /head -->
+    <title>GSM-Apply</title>
+    <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/reset.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/site.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/container.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/grid.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/header.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/image.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/menu.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/divider.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/segment.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/form.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/input.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/button.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/list.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/message.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/icon.css">
+    <style type="text/css">
+      body {
+        background-color: #DADADA;
+      }
+      body > .grid {
+        height: 100%;
+      }
+      .image {
+        margin-top: -100px;
+      }
+      .column {
+        max-width: 450px;
+      }
+    </style>
+  </head>
+  <body class="">
+    <script>
+      if(<%= islogin %>){
+        alert('이미 로그인 되어 있습니다!');
+        window.location.href='/';
+      }
+    </script>
+    <div class="ui middle aligned center aligned grid">
+      <div class="column">
+        <h2 class="ui teal image header">
+          <div class="content">
+            로그인 (Log-in to your account)
+          </div>
+        </h2>
+        <form method="POST" action="/login_proc" class="ui large form" id="fooorm">
+          <div class="ui stacked segment">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="text" name="id" placeholder="ID">
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input type="password" name="pw" placeholder="PW">
+              </div>
+            </div>
+            <div class="ui fluid large teal submit button" onclick="document.getElementById('fooorm').submit();">로그인 (Login)</div>
+          </div>
+
+          <div class="ui error message"></div>
+
+        </form>
+
+        <div class="ui message">
+          아직 가입하지 않으셨나요? <a href="/signup_agree">회원가입 (Sign Up)</a><br><br>
+          <a href="/">메인으로 (Go Main)</a>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery -->
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+    <script src="./semantic/semantic.min.js"></script>
+    <script src="semantic/components/form.js"></script>
+    <script src="semantic/components/transition.js"></script>
+    <!-- /jQuery -->
+  </body>
+</html>

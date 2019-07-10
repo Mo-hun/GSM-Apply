@@ -1,0 +1,11 @@
+## 민감정보
+/config
+/bin
+
+
+## 모듈
+/node_modules
+
+
+## semantic-ui
+/public/semantic
