@@ -11,6 +11,9 @@ var MySQLStore = require('express-mysql-session')(session);
 var app = express();
 var dbconfig = require('./config/dbconfig');
 var db = mysql.createConnection(dbconfig);
+const https = require('https');
+const fs = require('fs');
+
 
 db.connect();
 
@@ -18,12 +21,18 @@ db.connect();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(function(request, response){
+  if(!request.secure){
+    response.redirect("https://" + request.headers.host + request.url);
+  }
+});
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended : false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/static', { dotfiles: 'allow' } ))
 
 app.use(session({
   secret: 'twicelandoooooo',
@@ -37,6 +46,16 @@ app.use('/', indexRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
+
+https.createServer({
+  key: fs.readFileSync('/etc/letsencrypt/path/to/key.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/path/to/cert.pem'),
+  ca: fs.readFileSync('/etc/letsencrypt/path/to/chain.pem')
+}, app).listen(443, () => {
+  console.log('Listening...')
+})
 
 // error handler
 app.use(function(err, req, res, next) {

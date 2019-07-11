@@ -200,16 +200,18 @@ router.post('/signup_proc', (req, res, next)=>{
     var selectsql = "SELECT * FROM `user_info` WHERE `user_id` = ?";
     db.query(selectsql,[id], function (error, results) {
       if (error) {
+        console.log("err1");
         res.render('signup_message',{status : "err"});
       }
       else  {
         if(results[0]){
           res.render('signup_message',{status : "chidpw"});
         }else{
-          db.query(`INSERT INTO user_info ( user_name, user_birth, user_id, user_pw, user_email) VALUES (?, ?, ?, ?, ?)`,
+          db.query("INSERT INTO `user_info` ( `user_name`, `user_birth`, `user_id`, `user_pw`, `user_email`) VALUES (?, ?, ?, ?, ?)",
           [req.body.name, req.body.birth, id, hash, req.body.email], function (error, results, fields) {
             if (error) {
-              res.render('signup_message',{status : "err"});
+              console.log("err2");
+              res.render('signup_message', {status : "err"});
             }
             else  {
               res.render('signup_message',{status : "success"});
