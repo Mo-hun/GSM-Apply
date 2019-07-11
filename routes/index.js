@@ -90,7 +90,11 @@ router.get('/info_school', (req, res, next)=>{
 
 router.get('/notice', (req, res, next)=>{
   var stwice = req.session;
+  var admin = false;
   if(stwice.user_id){
+    if(stwice.user_code == 20151020){
+      admin = true;
+    }
     var mode = '로그아웃 (LOGOUT)';
     var mode_url = 'logout';
     var mode2 = '마이페이지 (MYPAGE)';
@@ -101,9 +105,27 @@ router.get('/notice', (req, res, next)=>{
     var mode2 = '회원가입 (SIGN UP)';
     var mode2_url = 'signup_agree';
   }
-  console.log(stwice);
-  console.log(req.session.user_id);
-  res.render('notice', { mode: mode , mode_url : mode_url, mode2 : mode2, mode2_url : mode2_url });
+  var status;
+  var selectsql = "SELECT * FROM `notice_info` ORDER BY notice_idx DESC";
+    db.query(selectsql, function (error, results) {
+      if (error) {
+        status = "err";
+        console.log("err");
+      }
+      else  {
+        if(!results[0]){
+          status = "no";
+          console.log("no");
+        }else{
+          status = "yes";
+          console.log(results);
+        }
+      }
+      var obj = { admin: admin, mode: mode , mode_url : mode_url, mode2 : mode2, mode2_url : mode2_url , admin : admin, status : status, notice : results};
+      console.log(obj)
+      res.render('notice',obj);
+    });
+    
 });
 
 router.get('/mypage', (req, res, next)=>{
@@ -197,6 +219,72 @@ router.post('/signup_proc', (req, res, next)=>{
       }
     });
   }
+});
+
+router.get('/simul', (req, res, next)=>{
+  res.render('disable');
+});
+
+router.get('/apply_score', (req, res, next)=>{
+  res.render('disable');
+});
+
+router.get('/cs_main', (req, res, next)=>{
+  res.render('disable');
+});
+
+router.get('/notice_write', (req, res, next)=>{
+  var stwice = req.session;
+  if(stwice.user_id){
+    var mode = '로그아웃 (LOGOUT)';
+    var mode_url = 'logout';
+    var mode2 = '마이페이지 (MYPAGE)';
+    var mode2_url = 'mypage';
+  }else{
+    var mode = '로그인 (LOGIN)';
+    var mode_url = 'login';
+    var mode2 = '회원가입 (SIGN UP)';
+    var mode2_url = 'signup_agree';
+  }
+  if(req.session.user_code != 20151020){
+    res.render('permission');
+  }else{
+    res.render('notice_write', { mode: mode , mode_url : mode_url, mode2 : mode2, mode2_url : mode2_url });
+  }
+});
+
+router.post('/notice_write_proc', (req, res, next)=>{
+  if(req.session.user_code != 20151020){
+    res.render('permission');
+  }else{
+    var title = req.body.title;
+    var body = req.body.body;
+    var name = req.session.user_name;
+    var selectsql = "INSERT INTO `notice_info`(notice_title, notice_body, notice_date, notice_author) VALUES (?,?,NOW(), ?)";
+    db.query(selectsql,[title, body, name], function (error, results) {
+      res.redirect('/');
+    });
+  }
+});
+
+router.get('/notice_view', (req, res, next)=>{
+  var stwice = req.session;
+  if(stwice.user_id){
+    var mode = '로그아웃 (LOGOUT)';
+    var mode_url = 'logout';
+    var mode2 = '마이페이지 (MYPAGE)';
+    var mode2_url = 'mypage';
+  }else{
+    var mode = '로그인 (LOGIN)';
+    var mode_url = 'login';
+    var mode2 = '회원가입 (SIGN UP)';
+    var mode2_url = 'signup_agree';
+  }
+  var notice_no = req.query.notice_id;
+  var selectsql = "SELECT * FROM notice_info WHERE notice_idx = ?";
+  db.query(selectsql,[notice_no], function (error, results) {
+    res.render('notice_view', {notice : results, mode: mode , mode_url : mode_url, mode2 : mode2, mode2_url : mode2_url });
+  });
 });
 
 router.post('/mypage_proc', (req, res, next)=>{

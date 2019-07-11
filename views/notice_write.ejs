@@ -25,9 +25,11 @@
     <link rel="stylesheet" type="text/css" href="semantic/components/grid.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/header.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/image.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/menu.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/divider.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/list.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/segment.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/dropdown.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/icon.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/transition.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/button.css">
@@ -37,12 +39,11 @@
     <link rel="stylesheet" type="text/css" href="semantic/components/reveal.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/dimmer.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/rating.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/table.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/popup.css">
-    <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="semantic/components/form.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/input.css">
-    <link rel="stylesheet" type="text/css" href="semantic/components/button.css">
-    <link rel="stylesheet" type="text/css" href="semantic/components/message.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/Statistic.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/form.css">
     <style type="text/css">
       body {
         background-color: #DADADA;
@@ -54,6 +55,12 @@
         max-width: 450px;
       }
       .card{
+          cursor: pointer;
+      }
+      .center{
+          text-align: center;
+      }
+      .cursor{
           cursor: pointer;
       }
     </style>
@@ -68,11 +75,6 @@
     <script src="semantic/components/dropdown.js"></script>
     <script src="/semantic/components/visibility.js"></script>
     <script>
-    var pslogin = "<%= mode_url %>";
-    if(pslogin == "login"){
-        alert("로그인이 필요합니다!");
-        window.location.href='/login';
-    }
     $(document)
       .ready(function() {
         $('.main.menu').visibility({
@@ -85,6 +87,17 @@
         $('.main.menu  .ui.dropdown').dropdown({
           on: 'click'
         });
+        $('.special.card .image').dimmer({
+                on: 'hover'
+            });
+            $('.star.rating')
+                .rating()
+            ;
+            $('.card .dimmer')
+                .dimmer({
+                on: 'hover'
+                })
+            ;
       })
     ;
     </script>
@@ -103,7 +116,7 @@
           <div class="menu">
             <div class="item" onclick="window.location.href='/info_apply';">
               전형 요강</div>
-            <div class="item" onclick="window.location.href='/info_school';">
+            <div class="active item" onclick="window.location.href='/info_school';">
               학교 소개</div>
           </div>
         </a>
@@ -117,109 +130,45 @@
       </div>
       <br>
       <br>
-      <br>    
       <br>
       <br>
-      <br>   
-      <br>
-      <br>
-      <form method="POST" action="/apply_proc" class="ui large form" id="fooorm">
-      <div class="ui middle aligned center aligned grid">
-        <div class="column">
-            <h2 class="ui teal image header">
-            <div class="content">
-                지원자 인적사항 입력
+        <div class="ui horizontal statistic">
+            <div class="value">
+                공지사항
             </div>
-            </h2>
-            <div class="ui stacked segment">
-                <div class="field">
-                <div class="ui left icon input">
-                    <i class="user icon"></i>
-                    <input type="text" name="name" placeholder="성 명">
-                </div>
-                </div>
-                <div class="field">
-                <div class="ui left icon input">
-                    <i class="phone icon"></i>
-                    <input type="text" name="call" placeholder="전 화 ex)123456789">
-                </div>
-                </div>
-                <div class="field">
-                <div class="ui left icon input">
-                    <i class="mobile icon"></i>
-                    <input type="text" name="phone" placeholder="휴대폰 ex)01012345678">
-                </div>
-                </div>
-                <div class="field">
-                <div class="ui left icon input">
-                    <i class="home icon"></i>
-                    <input type="text" name="address" placeholder="주 소">
-                </div>
-                </div>
-                <div class="field">
-                    <select class="ui fluid dropdown" name="gender">
-                        <option value="">성별(Gender)</option>
-                        <option value="1">남(Men)</option>
-                        <option value="0">여(Women)</option>
-                    </select>
-                </div>
-                <div class="field">
-                    <input class="ui fluid" name="birth" type="date"/>
-                </div>
+            <div class="label">
+                Notice
             </div>
         </div>
-      </div>
-      <div class="ui middle aligned center aligned grid">
-        <div class="column">
-            <h2 class="ui teal image header">
-            <div class="content">
-                보호자 인적사항 입력
-            </div>
-            </h2>
-            <div class="ui stacked segment">
+        <form method="POST" action="/notice_write_proc">
+        <table class="ui blue table">
+            <tbody>
+                <tr>
+                <td>제목</td>
+                <td>
                 <div class="field">
-                <div class="ui left icon input">
-                    <i class="user icon"></i>
-                    <input type="text" name="p_name" placeholder="성 명">
+                <div class="ui input">
+                    <input type="text" name="title" placeholder="title">
                 </div>
                 </div>
+                </td>
+                </tr>
+                <tr>
+                <td>내용</td>
+                <td>
+                <div class="ui form">
                 <div class="field">
-                <div class="ui left icon input">
-                    <i class="exchange icon"></i>
-                    <input type="text" name="route" placeholder="지원자와의 관계">
+                    <textarea name="body"></textarea>
                 </div>
                 </div>
-                <div class="field">
-                <div class="ui left icon input">
-                    <i class="phone icon"></i>
-                    <input type="text" name="p_call" placeholder="전 화 ex)123456789">
-                </div>
-                </div>
-                <div class="field">
-                <div class="ui left icon input">
-                    <i class="mobile icon"></i>
-                    <input type="text" name="p_phone" placeholder="휴대폰 ex)01012345678">
-                </div>
-                </div>
-                <div class="field">
-                    <select class="ui fluid dropdown" name="p_gender">
-                        <option value="">성별(Gender)</option>
-                        <option value="1">남(Men)</option>
-                        <option value="0">여(Women)</option>
-                    </select>
-                </div>
-                <div class="field">
-                    <input class="ui fluid" type="date"/>
-                </div>
-                <div class="ui fluid large teal submit button" onclick="alert('미개발 된 기능입니다.');" >다음 단계 (미 개발)</div>
-            </div>
-            <div class="ui error message"></div>
-            <div class="ui message">
-            <a href="/">메인으로 (Go Main)</a>
-            </div>
-        </div>
-      </div>
-      </form><br><br><br>
+                </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="ui button" type="submit">
+            공지하기 (Write)
+        </button>
+        </form>
         <div class="ui bottom fixed borderless menu">
           <a class="item" href="https://gsm.hs.kr">본교 홈페이지(School Official Site)</a>
           <a class="item" onclick="window.open('/gae.txt','개인정보 수집 및 이용 동의', 'width=800, height=500, toolbar=no, menubar=no'); return false;">개인정보 수집 및 이용 동의(Privacy Policy)</a>

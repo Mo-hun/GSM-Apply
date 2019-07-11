@@ -58,6 +58,9 @@
       .center{
           text-align: center;
       }
+      .cursor{
+          cursor: pointer;
+      }
     </style>
 
     <script
@@ -142,40 +145,21 @@
                 <th>작성자</th>
                 <th>작성일</th>
             </tr></thead><tbody>
-                <tr>
-                <td>1</td>
-                <td>광주소프트웨어마이스터고</td>
-                <td>0g</td>
-                <td>test</td>
+                <% for(var i = 0; i < notice.length; i++)   {   %>
+                <tr class="cursor" onclick="window.location.href='/notice_view?notice_id=<%=notice[i].notice_idx%>'">
+                <td><%=i+1%></td>
+                <td><%=notice[i].notice_title%></td>
+                <td><%=notice[i].notice_author%></td>
+                <td><%=notice[i].notice_date%></td>
                 </tr>
-                <tr>
-                <td>2</td>
-                <td>310</td>
-                <td>0g</td>
-                <td>test</td>
-                </tr>
+                <% } %>
             </tbody>
         </table>
-        <div class="center">
-            <div class="ui pagination menu">
-                <a class="active item">
-                    1
-                </a>
-                <div class="disabled item">
-                    ...
-                </div>
-                <a class="item">
-                    10
-                </a>
-                <a class="item">
-                    11
-                </a>
-                <a class="item">
-                    12
-                </a>
-            </div>
-        </div>
-        
+        <% if(admin == true) {%>
+            <button class="ui button" onclick="window.location.href='/notice_write';">
+                공지하기
+            </button>
+        <%}%>
         <div class="ui bottom fixed borderless menu">
           <a class="item" href="https://gsm.hs.kr">본교 홈페이지(School Official Site)</a>
           <a class="item" onclick="window.open('/gae.txt','개인정보 수집 및 이용 동의', 'width=800, height=500, toolbar=no, menubar=no'); return false;">개인정보 수집 및 이용 동의(Privacy Policy)</a>
