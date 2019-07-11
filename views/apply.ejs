@@ -96,7 +96,7 @@
             </a>
         <div class="item">
         </div>
-        <a class="item active" href="/">메인</a>
+        <a class="item" href="/">메인</a>
         <a class="ui dropdown item">
           학교 소개
           <i class="dropdown icon"></i>
@@ -113,6 +113,7 @@
         <a class="item" href="/notice">공지사항</a>
         <a class="item" href="/cs_main">고객센터</a>
         <a class="right item" href="/<%= mode_url %>"><%= mode %></a></a>
+        <a class="item" href="/<%= mode2_url %>"><%= mode2 %></a></a>
       </div>
       <br>
       <br>
@@ -139,12 +140,24 @@
                 </div>
                 <div class="field">
                 <div class="ui left icon input">
-                    <i class="user icon"></i>
-                    <input type="text" name="name" placeholder="성 별">
+                    <i class="phone icon"></i>
+                    <input type="text" name="call" placeholder="전 화 ex)123456789">
                 </div>
                 </div>
                 <div class="field">
-                    <select class="ui fluid dropdown" name="sex">
+                <div class="ui left icon input">
+                    <i class="mobile icon"></i>
+                    <input type="text" name="phone" placeholder="휴대폰 ex)01012345678">
+                </div>
+                </div>
+                <div class="field">
+                <div class="ui left icon input">
+                    <i class="home icon"></i>
+                    <input type="text" name="address" placeholder="주 소">
+                </div>
+                </div>
+                <div class="field">
+                    <select class="ui fluid dropdown" name="gender">
                         <option value="">성별(Gender)</option>
                         <option value="1">남(Men)</option>
                         <option value="0">여(Women)</option>
@@ -153,11 +166,6 @@
                 <div class="field">
                     <input class="ui fluid" name="birth" type="date"/>
                 </div>
-                <div class="ui fluid large teal submit button" onclick="document.getElementById('fooorm').submit();">제출 (Submit)</div>
-            </div>
-            <div class="ui error message"></div>
-            <div class="ui message">
-            <a href="/">메인으로 (Go Main)</a>
             </div>
         </div>
       </div>
@@ -165,24 +173,36 @@
         <div class="column">
             <h2 class="ui teal image header">
             <div class="content">
-                지원자 인적사항 입력
+                보호자 인적사항 입력
             </div>
             </h2>
             <div class="ui stacked segment">
                 <div class="field">
                 <div class="ui left icon input">
                     <i class="user icon"></i>
-                    <input type="text" name="name" placeholder="성 명">
+                    <input type="text" name="p_name" placeholder="성 명">
                 </div>
                 </div>
                 <div class="field">
                 <div class="ui left icon input">
-                    <i class="user icon"></i>
-                    <input type="text" name="name" placeholder="성 별">
+                    <i class="exchange icon"></i>
+                    <input type="text" name="route" placeholder="지원자와의 관계">
                 </div>
                 </div>
                 <div class="field">
-                    <select class="ui fluid dropdown" name="sex">
+                <div class="ui left icon input">
+                    <i class="phone icon"></i>
+                    <input type="text" name="p_call" placeholder="전 화 ex)123456789">
+                </div>
+                </div>
+                <div class="field">
+                <div class="ui left icon input">
+                    <i class="mobile icon"></i>
+                    <input type="text" name="p_phone" placeholder="휴대폰 ex)01012345678">
+                </div>
+                </div>
+                <div class="field">
+                    <select class="ui fluid dropdown" name="p_gender">
                         <option value="">성별(Gender)</option>
                         <option value="1">남(Men)</option>
                         <option value="0">여(Women)</option>
@@ -191,7 +211,7 @@
                 <div class="field">
                     <input class="ui fluid" type="date"/>
                 </div>
-                <div class="ui fluid large teal submit button" onclick="document.getElementById('fooorm').submit();">제출 (Submit)</div>
+                <div class="ui fluid large teal submit button" onclick="document.getElementById('fooorm').submit();">다음 단계 (Next Step)</div>
             </div>
             <div class="ui error message"></div>
             <div class="ui message">
@@ -199,7 +219,7 @@
             </div>
         </div>
       </div>
-      </form>
+      </form><br><br><br>
         <div class="ui bottom fixed borderless menu">
           <a class="item" href="https://gsm.hs.kr">본교 홈페이지(School Official Site)</a>
           <a class="item" onclick="window.open('/gae.txt','개인정보 수집 및 이용 동의', 'width=800, height=500, toolbar=no, menubar=no'); return false;">개인정보 수집 및 이용 동의(Privacy Policy)</a>

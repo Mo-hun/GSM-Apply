@@ -24,13 +24,17 @@ router.get('/', (req, res, next)=>{
   if(stwice.user_id){
     var mode = '로그아웃 (LOGOUT)';
     var mode_url = 'logout';
+    var mode2 = '마이페이지 (MYPAGE)';
+    var mode2_url = 'mypage';
   }else{
     var mode = '로그인 (LOGIN)';
     var mode_url = 'login';
+    var mode2 = '회원가입 (SIGN UP)';
+    var mode2_url = 'signup_agree';
   }
   console.log(stwice);
   console.log(req.session.user_id);
-  res.render('index', { mode: mode , mode_url : mode_url });
+  res.render('index', { mode: mode , mode_url : mode_url, mode2 : mode2, mode2_url : mode2_url });
 });
 
 router.get('/login', (req, res, next)=>{
@@ -71,13 +75,47 @@ router.get('/info_school', (req, res, next)=>{
   if(stwice.user_id){
     var mode = '로그아웃 (LOGOUT)';
     var mode_url = 'logout';
+    var mode2 = '마이페이지 (MYPAGE)';
+    var mode2_url = 'mypage';
   }else{
     var mode = '로그인 (LOGIN)';
     var mode_url = 'login';
+    var mode2 = '회원가입 (SIGN UP)';
+    var mode2_url = 'signup_agree';
   }
   console.log(stwice);
   console.log(req.session.user_id);
-  res.render('info_school', { mode: mode , mode_url : mode_url });
+  res.render('info_school', { mode: mode , mode_url : mode_url, mode2 : mode2, mode2_url : mode2_url });
+});
+
+router.get('/notice', (req, res, next)=>{
+  var stwice = req.session;
+  if(stwice.user_id){
+    var mode = '로그아웃 (LOGOUT)';
+    var mode_url = 'logout';
+    var mode2 = '마이페이지 (MYPAGE)';
+    var mode2_url = 'mypage';
+  }else{
+    var mode = '로그인 (LOGIN)';
+    var mode_url = 'login';
+    var mode2 = '회원가입 (SIGN UP)';
+    var mode2_url = 'signup_agree';
+  }
+  console.log(stwice);
+  console.log(req.session.user_id);
+  res.render('notice', { mode: mode , mode_url : mode_url, mode2 : mode2, mode2_url : mode2_url });
+});
+
+router.get('/mypage', (req, res, next)=>{
+  var stwice = req.session;
+  if(stwice.user_id){
+    var mode = 'mypage';
+  }else{
+    var mode = 'exit';
+  }
+  console.log(stwice);
+  console.log(req.session.user_id);
+  res.render('mypage', { mode : mode, id : req.session.user_id, name : req.session.user_name, email : req.session.user_email, birth : req.session.user_birth});
 });
 
 router.get('/info_apply', (req, res, next)=>{
@@ -85,13 +123,17 @@ router.get('/info_apply', (req, res, next)=>{
   if(stwice.user_id){
     var mode = '로그아웃 (LOGOUT)';
     var mode_url = 'logout';
+    var mode2 = '마이페이지 (MYPAGE)';
+    var mode2_url = 'mypage';
   }else{
     var mode = '로그인 (LOGIN)';
     var mode_url = 'login';
+    var mode2 = '회원가입 (SIGN UP)';
+    var mode2_url = 'signup_agree';
   }
   console.log(stwice);
   console.log(req.session.user_id);
-  res.render('info_apply', { mode: mode , mode_url : mode_url });
+  res.render('info_apply', { mode: mode , mode_url : mode_url, mode2 : mode2, mode2_url : mode2_url });
 });
 
 router.get('/apply', (req, res, next)=>{
@@ -99,13 +141,17 @@ router.get('/apply', (req, res, next)=>{
   if(stwice.user_id){
     var mode = '로그아웃 (LOGOUT)';
     var mode_url = 'logout';
+    var mode2 = '마이페이지 (MYPAGE)';
+    var mode2_url = 'mypage';
   }else{
     var mode = '로그인 (LOGIN)';
     var mode_url = 'login';
+    var mode2 = '회원가입 (SIGN UP)';
+    var mode2_url = 'signup_agree';
   }
   console.log(stwice);
   console.log(req.session.user_id);
-  res.render('apply', { mode: mode , mode_url : mode_url });
+  res.render('apply', { mode: mode , mode_url : mode_url, mode2 : mode2, mode2_url : mode2_url });
 });
 
 router.get('/logout', (req, res, next)=>{
@@ -153,6 +199,71 @@ router.post('/signup_proc', (req, res, next)=>{
   }
 });
 
+router.post('/mypage_proc', (req, res, next)=>{
+  console.log("up");
+  if(!req.session.user_id){
+    res.render('islogin',null,function(){
+    });
+  }else{
+    var id = req.session.user_id;
+    var pw = req.body.pw;
+    var npwc = 0;
+    if(req.body.new_pw){
+      npwc = 1;
+      var npw = req.body.new_pw;
+      var nhash = crypto.createHash('sha512').update(npw).digest('base64');
+    }
+    var hash = crypto.createHash('sha512').update(pw).digest('base64');
+   
+    var selectsql = "SELECT * FROM `user_info` WHERE `user_id` = ?";
+    db.query(selectsql,[id], function (error, results) {
+      if (error) {
+        res.render('mypage_message',{status : "err"});
+      }
+      else  {
+        console.log("up");
+        if(!results[0]){
+          res.render('mypage_message',{status : "chidpw"});
+        }else{
+          if(results[0].user_pw == hash){
+            if(npwc == 1){
+              db.query(`UPDATE user_info SET user_name = ?, user_birth = ?, user_pw = ?, user_email  = ? WHERE user_idx = ?`,
+              [req.body.name, req.body.birth, nhash, req.body.email, req.session.user_idx], function (error, results, fields) {
+                console.log("up");
+                if (error) {
+                  res.render('mypage_message',{status : "err"});
+                }
+                else  {
+                  req.session.user_birth = req.body.birth;
+                  req.session.user_name = req.body.name;
+                  req.session.user_email = req.body.email;
+                  res.render('mypage_message',{status : "success"});
+                }
+              });
+            }else{
+              db.query(`UPDATE user_info SET user_name = ?, user_birth = ?, user_email = ? WHERE user_idx = ?`,
+              [req.body.name, req.body.birth, req.body.email, req.session.user_idx], function (error, results, fields) {
+                console.log("up");
+                if (error) {
+                  res.render('mypage_message',{status : "err"});
+                }
+                else  {
+                  req.session.user_birth = req.body.birth;
+                  req.session.user_name = req.body.name;
+                  req.session.user_email = req.body.email;
+                  res.render('mypage_message',{status : "success"});
+                }
+              });
+            }
+          }else{
+            res.render('mypage_message',{status : "chidpw"});
+          }
+        }
+      }
+    });
+  }
+});
+
 router.post('/login_proc', (req, res, next)=>{
   if(req.session.user_id){
     res.render('islogin',null,function(){
@@ -174,6 +285,7 @@ router.post('/login_proc', (req, res, next)=>{
       else  {
         if(results[0].user_pw == hash){
           req.session.user_id = req.body.id;
+          req.session.user_idx = results[0].user_idx;
           req.session.user_birth = results[0].user_birth;
           req.session.user_email = results[0].user_email;
           req.session.user_name = results[0].user_name;

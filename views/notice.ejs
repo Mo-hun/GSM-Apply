@@ -39,7 +39,9 @@
     <link rel="stylesheet" type="text/css" href="semantic/components/reveal.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/dimmer.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/rating.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/table.css">
     <link rel="stylesheet" type="text/css" href="semantic/components/popup.css">
+    <link rel="stylesheet" type="text/css" href="semantic/components/Statistic.css">
     <style type="text/css">
       body {
         background-color: #DADADA;
@@ -52,6 +54,9 @@
       }
       .card{
           cursor: pointer;
+      }
+      .center{
+          text-align: center;
       }
     </style>
 
@@ -104,9 +109,9 @@
           학교 소개
           <i class="dropdown icon"></i>
           <div class="menu">
-            <div class="active item" onclick="window.location.href='/info_apply';">
+            <div class="item" onclick="window.location.href='/info_apply';">
               전형 요강</div>
-            <div class="item" onclick="window.location.href='/info_school';">
+            <div class="active item" onclick="window.location.href='/info_school';">
               학교 소개</div>
           </div>
         </a>
@@ -121,8 +126,56 @@
       <br>
       <br>
       <br>
-        <embed src="/yogang.pdf" width="100%" height="90%" 
-            type="application/pdf">
+      <br>
+        <div class="ui horizontal statistic">
+            <div class="value">
+                공지사항
+            </div>
+            <div class="label">
+                Notice
+            </div>
+        </div>
+        <table class="ui blue table">
+            <thead>
+                <tr><th>공지번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+            </tr></thead><tbody>
+                <tr>
+                <td>1</td>
+                <td>광주소프트웨어마이스터고</td>
+                <td>0g</td>
+                <td>test</td>
+                </tr>
+                <tr>
+                <td>2</td>
+                <td>310</td>
+                <td>0g</td>
+                <td>test</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="center">
+            <div class="ui pagination menu">
+                <a class="active item">
+                    1
+                </a>
+                <div class="disabled item">
+                    ...
+                </div>
+                <a class="item">
+                    10
+                </a>
+                <a class="item">
+                    11
+                </a>
+                <a class="item">
+                    12
+                </a>
+            </div>
+        </div>
+        
         <div class="ui bottom fixed borderless menu">
           <a class="item" href="https://gsm.hs.kr">본교 홈페이지(School Official Site)</a>
           <a class="item" onclick="window.open('/gae.txt','개인정보 수집 및 이용 동의', 'width=800, height=500, toolbar=no, menubar=no'); return false;">개인정보 수집 및 이용 동의(Privacy Policy)</a>

@@ -46,7 +46,7 @@
         height: 100%;
       }
       .image {
-        margin-top: -100px; 
+        margin-top: -100px;
       }
       .column {
         max-width: 450px;
@@ -55,13 +55,13 @@
     <script>
         var tt = "<%= status %>";
         if(tt == "success"){
-            alert("회원가입 성공");
+            alert("정보수정 성공");
             window.location.href = '/';
         }else if(tt == "err"){
-            alert("회원가입 에러, 관리자에게 문의하세요.");
+            alert("정보수정 에러, 관리자에게 문의하세요.");
             window.location.href = '/';
         }else if(tt == "chidpw"){
-            alert("회원가입 실패, 아이디와 비밀번호를 확인하세요.");
+            alert("정보수정 실패, 아이디와 비밀번호를 확인하세요.");
             history.back();
         }
       </script>
